@@ -2,11 +2,13 @@
     "name": "supavolt",
     "private": true,
     "scripts": {
-        "dev:api": "pnpm --filter api run start:dev",
-        "dev-web": "pnpm --filter web run dev",
-        "dev": "concurrently \"pnpm run dev:api\" \"pnpm run dev-web\""
+        "build:packages": "pnpm --filter \"@supavolt/*\" build",
+        "dev:api": "pnpm build:packages && pnpm --filter api run start:dev",
+        "dev-web": "pnpm build:packages && pnpm --filter web run dev",
+        "dev": "pnpm build:packages && concurrently \"pnpm --filter \\\"@supavolt/*\\\" dev\" \"pnpm run dev:api\" \"pnpm run dev-web\""
     },
     "devDependencies": {
-        "concurrently": "^10.0.3"
+        "concurrently": "^10.0.3",
+        "typescript": "^7.0.2"
     }
 }
